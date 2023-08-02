@@ -1,4 +1,4 @@
-export default function signin() {
+export default function Signin() {
     return (
         <div>
             <input data-testid="email-input" />
