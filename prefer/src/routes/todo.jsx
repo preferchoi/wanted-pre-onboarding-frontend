@@ -5,7 +5,7 @@ export default function Todo() {
     const navigate = useNavigate();
 
     const [content, setContent] = useState("");
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState(localStorage.getItem("todos").split(',') || []);
 
     useEffect(() => {
         const token = localStorage.getItem("access_token")
@@ -13,6 +13,10 @@ export default function Todo() {
             navigate('/signin');
         }
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem('todos', todos);
+    }, [todos])
 
     const onChange = (event) => {
         setContent(event.target.value);
