@@ -23,6 +23,10 @@ export default function Todo() {
         setContent("")
     }
 
+    const onDelete = (idx) => {
+        setTodos(todos.filter((_, index) => index !== idx));
+    }
+
     return (
         <div>
             <input data-testid="new-todo-input" onChange={onChange} value={content}/>
@@ -35,7 +39,7 @@ export default function Todo() {
                             <span>{todo}</span>
                         </label>
                         <button data-testid="modify-button">수정</button>
-                        <button data-testid="delete-button">삭제</button>
+                        <button data-testid="delete-button" onClick={() => onDelete(idx)}>삭제</button>
                     </li>
                 ))}
             </ul>
