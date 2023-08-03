@@ -1,19 +1,44 @@
-import React, { useEffect } from 'react';
-import { useNavigate  } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function Todo() {
     const navigate = useNavigate();
+
+    const [content, setContent] = useState("");
+    const [todos, setTodos] = useState([]);
 
     useEffect(() => {
         const token = localStorage.getItem("access_token")
         if (!token) {
             navigate('/signin');
         }
-      }, []);
+    }, []);
+
+    const onChange = (event) => {
+        setContent(event.target.value);
+    }
+
+    const onClickAdd = () => {
+        setTodos([...todos, content])
+        setContent("")
+    }
 
     return (
         <div>
-            123
+            <input data-testid="new-todo-input" onChange={onChange} value={content}/>
+            <button data-testid="new-todo-add-button" onClick={onClickAdd}>추가</button>
+            <ul>
+                {todos.map((todo, idx) => (
+                    <li key={idx}>
+                        <label>
+                            <input type="checkbox" />
+                            <span>{todo}</span>
+                        </label>
+                        <button data-testid="modify-button">수정</button>
+                        <button data-testid="delete-button">삭제</button>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
