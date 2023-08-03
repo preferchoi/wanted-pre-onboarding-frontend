@@ -33,6 +33,7 @@ export default function Signin() {
             const response = await axios.post('https://www.pre-onboarding-selection-task.shop/auth/signin', { email, password });
             if (response.status === 200) {
                 console.log(response.data.access_token);
+                localStorage.setItem('access_token', response.data.access_token);
                 navigate('/todo');
             }
         } catch (error) {
