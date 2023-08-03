@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import Signin from './routes/signin';
 import Signup from './routes/signup';
+import Todo from './routes/todo';
 
 import {
   createBrowserRouter,
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <Signin />
+  },
+  {
+    path: "/todo",
+    element: <Todo />
   },
 ]);
 
