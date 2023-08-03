@@ -38,6 +38,14 @@ export default function Signup() {
             console.error('Signup failed:', error);
         }
     };
+    
+    // 토큰 존재할 시 /todo로 리다이렉트
+    useEffect(() => {
+        const token = localStorage.getItem("access_token")
+        if (token) {
+            navigate('/todo');
+        }
+        }, []);
 
     return (
         <div>

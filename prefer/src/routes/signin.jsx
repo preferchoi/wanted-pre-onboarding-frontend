@@ -28,6 +28,7 @@ export default function Signin() {
         setIsPasswordValid(passwordRegex.test(password));
     }, [password]);
 
+    // 로그인 처리 로직
     const signin = async () => {
         try {
             const response = await axios.post('https://www.pre-onboarding-selection-task.shop/auth/signin', { email, password });
@@ -40,6 +41,14 @@ export default function Signin() {
             console.error('Signup failed:', error);
         }
     };
+
+    // 토큰 존재할 시 /todo로 리다이렉트
+    useEffect(() => {
+        const token = localStorage.getItem("access_token")
+        if (token) {
+            navigate('/todo');
+        }
+      }, []);
 
     return (
         <div>
