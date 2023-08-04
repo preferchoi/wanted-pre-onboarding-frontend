@@ -8,6 +8,7 @@ export default function Todo() {
 
     const [content, setContent] = useState("");
     const [todos, setTodos] = useState([]);
+    const [updateTarget, setUpdateTarget] = useState(null);
 
     useEffect(() => {
 
@@ -70,7 +71,38 @@ export default function Todo() {
         }
     }
 
-    const onDelete = async (idx) => {
+    const updateTodoChecked = async (idx) => {
+        const t = todos.filter((todo) => todo.id === idx)
+        try {
+            const response = await axios.put(
+                `https://www.pre-onboarding-selection-task.shop/todos/${idx}`,
+                {
+                    "todo": t[0].todo,
+                    "isCompleted": t[0].isCompleted
+                },
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    },
+                },
+            )
+            const data = response.data
+            if (response.status === 200) {
+                setTodos(todos.map((item) => {
+                    if (item.id === data.id) {
+                        return data
+                    } else {
+                        return item
+                    }
+                }))
+                setUpdateTarget(null)
+            }
+        } catch (error) {
+            console.error('Signup failed:', error);
+        }
+    }
+
+    const deleteTodo = async (idx) => {
         try {
             const response = await axios.delete(
                 `https://www.pre-onboarding-selection-task.shop/todos/${idx}`,
@@ -88,6 +120,14 @@ export default function Todo() {
         }
     }
 
+    const handleCheckChange = (id, checked) => {
+        setTodos(todos.map(todo => todo.id === id ? { ...todo, isCompleted: checked } : todo));
+    };
+
+    const handleTodoChange = (id, newTodo) => {
+        setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: newTodo } : todo));
+    };
+
     return (
         <div>
             <input data-testid="new-todo-input" onChange={onChange} value={content} />
@@ -95,14 +135,25 @@ export default function Todo() {
 
             <ul>
                 {todos.map((todo => (
-                    <li key={todo.id}>
-                        <label>
-                            <input type="checkbox" />
-                            <span>{todo.todo}</span>
-                        </label>
-                        <button data-testid="modify-button">수정</button>
-                        <button data-testid="delete-button" onClick={() => onDelete(todo.id)}>삭제</button>
-                    </li>
+                    todo.id === updateTarget ? (
+                        <li key={todo.id}>
+                            <label>
+                                <input type="checkbox" checked={todo.isCompleted} onChange={(e) => handleCheckChange(todo.id, e.target.checked)} />
+                                <input data-testid="modify-input" type="text" onChange={(e) => handleTodoChange(todo.id, e.target.value)} value={todo.todo} />
+                            </label>
+                            <button data-testid="submit-button" onClick={() => updateTodoChecked(todo.id)}>수정</button>
+                            <button data-testid="cancel-button" onClick={() => setUpdateTarget(null)}>취소</button>
+                        </li>
+                    ) : (
+                        <li key={todo.id}>
+                            <label>
+                                <input type="checkbox" checked={todo.isCompleted} onChange={(e) => handleCheckChange(todo.id, e.target.checked)} />
+                                <span>{todo.todo}</span>
+                            </label>
+                            <button data-testid="modify-button" onClick={() => setUpdateTarget(todo.id)}>수정</button>
+                            <button data-testid="delete-button" onClick={() => deleteTodo(todo.id)}>삭제</button>
+                        </li>
+                    )
                 )))}
             </ul>
         </div>
