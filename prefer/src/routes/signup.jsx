@@ -18,16 +18,19 @@ export default function Signup() {
         setPassword(event.target.value);
     };
 
+    // 이메일 유효성 체크
     useEffect(() => {
         const emailRegex = /^.*@.*$/;
         setIsEmailValid(emailRegex.test(email));
     }, [email]);
 
+    // 비밀번호 유효성 체크
     useEffect(() => {
         const passwordRegex = /^.{8,}$/;
         setIsPasswordValid(passwordRegex.test(password));
     }, [password]);
 
+    // 회원가입 요청
     const signup = async () => {
         try {
             const response = await axios.post('https://www.pre-onboarding-selection-task.shop/auth/signup', { email, password });

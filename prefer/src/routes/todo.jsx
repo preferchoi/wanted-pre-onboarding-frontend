@@ -8,8 +8,10 @@ export default function Todo() {
 
     const [content, setContent] = useState("");
     const [todos, setTodos] = useState([]);
+    // 현재 수정중인 todo index
     const [updateTarget, setUpdateTarget] = useState(null);
 
+    // 토큰 확인
     useEffect(() => {
         if (!token) {
             navigate('/signin');
@@ -18,6 +20,7 @@ export default function Todo() {
         }
     }, []);
 
+    // todos 변경 시 로컬스토리지 저장
     useEffect(() => {
         localStorage.setItem('todos', todos);
     }, [todos])
@@ -26,6 +29,7 @@ export default function Todo() {
         setContent(event.target.value);
     }
 
+    // 데이터 생성
     const createTodo = async () => {
         try {
             const response = await axios.post(
@@ -47,6 +51,7 @@ export default function Todo() {
         }
     }
 
+    // 데이터 호출
     const getTodos = async () => {
         try {
             const response = await axios.get(
@@ -64,7 +69,7 @@ export default function Todo() {
             console.error('get failed:', error);
         }
     }
-
+    // 데이터 수정
     const updateTodoChecked = async (idx) => {
         const t = todos.filter((todo) => todo.id === idx)
         try {
@@ -96,6 +101,7 @@ export default function Todo() {
         }
     }
 
+    // 데이터 삭제
     const deleteTodo = async (idx) => {
         try {
             const response = await axios.delete(
@@ -113,11 +119,13 @@ export default function Todo() {
             console.error('delete failed:', error);
         }
     }
-
+    
+    // 체크박스 동기화 위한 onChange
     const handleCheckChange = (id, checked) => {
         setTodos(todos.map(todo => todo.id === id ? { ...todo, isCompleted: checked } : todo));
     };
 
+    // 수정 내용 동기화 위한 onChange
     const handleTodoChange = (id, newTodo) => {
         setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: newTodo } : todo));
     };

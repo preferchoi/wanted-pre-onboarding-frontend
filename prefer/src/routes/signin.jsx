@@ -18,11 +18,13 @@ export default function Signin() {
         setPassword(event.target.value);
     };
 
+    // 이메일 유효성 체크
     useEffect(() => {
         const emailRegex = /^.*@.*$/;
         setIsEmailValid(emailRegex.test(email));
     }, [email]);
 
+    // 비밀번호 유효성 체크
     useEffect(() => {
         const passwordRegex = /^.{8,}$/;
         setIsPasswordValid(passwordRegex.test(password));
