@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 export default function Signin() {
@@ -38,7 +38,7 @@ export default function Signin() {
                 navigate('/todo');
             }
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('Signin failed:', error);
         }
     };
 
@@ -48,12 +48,12 @@ export default function Signin() {
         if (token) {
             navigate('/todo');
         }
-      }, []);
+    }, []);
 
     return (
         <div>
             <input data-testid="email-input" onChange={handleEmailChange} value={email} />
-            <input data-testid="password-input" onChange={handlePasswordChange} value={password}/>
+            <input data-testid="password-input" onChange={handlePasswordChange} value={password} />
             <button data-testid="signin-button" disabled={!isEmailValid ^ !isPasswordValid} onClick={signin}>로그인</button>
         </div>
     );

@@ -11,7 +11,6 @@ export default function Todo() {
     const [updateTarget, setUpdateTarget] = useState(null);
 
     useEffect(() => {
-
         if (!token) {
             navigate('/signin');
         } else {
@@ -26,11 +25,6 @@ export default function Todo() {
     const onChange = (event) => {
         setContent(event.target.value);
     }
-
-    // const onClickAdd = () => {
-    //     setTodos([...todos, content])
-    //     setContent("")
-    // }
 
     const createTodo = async () => {
         try {
@@ -49,7 +43,7 @@ export default function Todo() {
                 return [...todos, response.data]
             }
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('create failed:', error);
         }
     }
 
@@ -67,7 +61,7 @@ export default function Todo() {
                 setTodos(response.data);
             }
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('get failed:', error);
         }
     }
 
@@ -98,7 +92,7 @@ export default function Todo() {
                 setUpdateTarget(null)
             }
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('update failed:', error);
         }
     }
 
@@ -116,7 +110,7 @@ export default function Todo() {
                 setTodos(todos.filter((todo) => todo.id !== idx));
             }
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('delete failed:', error);
         }
     }
 

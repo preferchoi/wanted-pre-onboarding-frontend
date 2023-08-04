@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 export default function Signup() {
@@ -38,18 +38,18 @@ export default function Signup() {
             console.error('Signup failed:', error);
         }
     };
-    
+
     // 토큰 존재할 시 /todo로 리다이렉트
     useEffect(() => {
         const token = localStorage.getItem("access_token")
         if (token) {
             navigate('/todo');
         }
-        }, []);
+    }, []);
 
     return (
         <div>
-            <input data-testid="email-input" onChange={handleEmailChange} value={email}/>
+            <input data-testid="email-input" onChange={handleEmailChange} value={email} />
             <input data-testid="password-input" onChange={handlePasswordChange} value={password} />
             <button data-testid="signup-button" disabled={!isEmailValid ^ !isPasswordValid} onClick={signup}>회원가입</button>
         </div>
