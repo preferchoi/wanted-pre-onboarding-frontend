@@ -16,3 +16,10 @@ npm start
 기능이 정상 동작하지 않는 예시:
 새로고침하면 404 에러 페이지 표출
 "/" URL이 아닌 "/signup"등의 경로로 바로 접속할 경우 404 에러 페이지 표출 등
+
+
+1. 로그인 / 회원가입
+<img src=./login.gif>
+
+2. TODO LIST
+<img src=./todo.gif>
