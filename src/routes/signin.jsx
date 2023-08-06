@@ -54,8 +54,12 @@ export default function Signin() {
 
     return (
         <div>
-            <input data-testid="email-input" onChange={handleEmailChange} value={email} />
-            <input data-testid="password-input" onChange={handlePasswordChange} value={password} />
+            <label for="e-mail">e-mail: </label>
+            <input id="e-mail" data-testid="email-input" onChange={handleEmailChange} value={email} />
+            <br></br>
+            <label for="password">password: </label>
+            <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />
+            <br></br>
             <button data-testid="signin-button" disabled={!isEmailValid ^ !isPasswordValid} onClick={signin}>로그인</button>
         </div>
     );

@@ -70,14 +70,14 @@ export default function Todo() {
         }
     }
     // 데이터 수정
-    const updateTodoChecked = async (idx) => {
+    const updateTodoChecked = async (idx, TF) => {
         const t = todos.filter((todo) => todo.id === idx)
         try {
             const response = await axios.put(
                 `https://www.pre-onboarding-selection-task.shop/todos/${idx}`,
                 {
                     "todo": t[0].todo,
-                    "isCompleted": t[0].isCompleted
+                    "isCompleted": t[0].isCompleted ? TF : !t[0].isCompleted
                 },
                 {
                     headers: {
@@ -123,6 +123,7 @@ export default function Todo() {
     // 체크박스 동기화 위한 onChange
     const handleCheckChange = (id, checked) => {
         setTodos(todos.map(todo => todo.id === id ? { ...todo, isCompleted: checked } : todo));
+        updateTodoChecked(id, false);
     };
 
     // 수정 내용 동기화 위한 onChange
@@ -143,7 +144,7 @@ export default function Todo() {
                                 <input type="checkbox" checked={todo.isCompleted} onChange={(e) => handleCheckChange(todo.id, e.target.checked)} />
                                 <input data-testid="modify-input" type="text" onChange={(e) => handleTodoChange(todo.id, e.target.value)} value={todo.todo} />
                             </label>
-                            <button data-testid="submit-button" onClick={() => updateTodoChecked(todo.id)}>수정</button>
+                            <button data-testid="submit-button" onClick={() => updateTodoChecked(todo.id, true)}>수정</button>
                             <button data-testid="cancel-button" onClick={() => setUpdateTarget(null)}>취소</button>
                         </li>
                     ) : (
