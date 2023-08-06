@@ -60,7 +60,7 @@ export default function Signin() {
             <label for="password">password: </label>
             <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />
             <br></br>
-            <button data-testid="signin-button" disabled={!isEmailValid ^ !isPasswordValid} onClick={signin}>로그인</button>
+            <button data-testid="signin-button" disabled={!(isEmailValid && isPasswordValid)} onClick={signin}>로그인</button>
         </div>
     );
 }

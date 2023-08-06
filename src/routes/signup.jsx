@@ -58,7 +58,7 @@ export default function Signup() {
             <label for="password">password: </label>
             <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />
             <br></br>
-            <button data-testid="signup-button" disabled={!isEmailValid ^ !isPasswordValid} onClick={signup}>회원가입</button>
+            <button data-testid="signup-button" disabled={!(isEmailValid && isPasswordValid)} onClick={signup}>회원가입</button>
         </div>
     );
 }
