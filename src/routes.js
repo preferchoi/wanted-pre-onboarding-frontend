@@ -3,19 +3,22 @@ import Signin from './routes/signin';
 import Signup from './routes/signup';
 import Todo from './routes/todo';
 import { createBrowserRouter } from "react-router-dom";
+import { AuthLayout } from "./components/auth/layout";
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
     {
       path: "/",
       element: <App />,
     },
     {
       path: "/signup",
-      element: <Signup />
+      element:<AuthLayout><Signup /></AuthLayout>
     },
     {
       path: "/signin",
-      element: <Signin />
+      element: 
+      <AuthLayout><Signin /></AuthLayout>
+
     },
     {
       path: "/todo",
