@@ -11,15 +11,6 @@ export default function Todo() {
     // 현재 수정중인 todo index
     const [updateTarget, setUpdateTarget] = useState(null);
 
-    // 토큰 확인
-    useEffect(() => {
-        if (!token) {
-            navigate('/signin');
-        } else {
-            getTodos()
-        }
-    }, []);
-
     // todos 변경 시 로컬스토리지 저장
     useEffect(() => {
         localStorage.setItem('todos', todos);
