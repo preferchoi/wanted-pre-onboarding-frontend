@@ -1,7 +1,14 @@
 import { instance } from './index.js'
 
-export function signup(params) {
-    
+export async function signup(email, password) {
+    try {
+        const response = await instance.post('/signup', { email, password });
+        if (response.status === 201) {
+            return
+        }
+    } catch (error) {
+        console.error('Signup failed:', error);
+    }
 }
 
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import signup from "../api/auth/signup";
+
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -31,15 +32,11 @@ export default function Signup() {
     }, [password]);
 
     // 회원가입 요청
-    const signup = async () => {
-        try {
-            const response = await axios.post('https://www.pre-onboarding-selection-task.shop/auth/signup', { email, password });
-            if (response.status === 201) {
-                navigate('/signin');
-            }
-        } catch (error) {
-            console.error('Signup failed:', error);
-        }
+    const clickSignup = async () => {
+        signup(email, password)
+        .then(() => {
+            navigate('/signin');
+        })
     };
 
     // 토큰 존재할 시 /todo로 리다이렉트
@@ -52,13 +49,13 @@ export default function Signup() {
 
     return (
         <div>
-            <label for="e-mail">e-mail: </label>
+            <<label for="e-mail">e-mail: </label>
             <input id="e-mail" data-testid="email-input" onChange={handleEmailChange} value={email} />
             <br></br>
             <label for="password">password: </label>
-            <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />
+            <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />>
             <br></br>
-            <button data-testid="signup-button" disabled={!(isEmailValid && isPasswordValid)} onClick={signup}>회원가입</button>
+            <button data-testid="signup-button" disabled={!(isEmailValid && isPasswordValid)} onClick={clickSignup}>회원가입</button>
         </div>
     );
 }
