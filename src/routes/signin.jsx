@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import signin from "../api/auth/signin";
+
 
 export default function Signin() {
 
@@ -31,18 +32,14 @@ export default function Signin() {
     }, [password]);
 
     // 로그인 처리 로직
-    const signin = async () => {
-        try {
-            const response = await axios.post('https://www.pre-onboarding-selection-task.shop/auth/signin', { email, password });
-            if (response.status === 200) {
-                console.log(response.data.access_token);
-                localStorage.setItem('access_token', response.data.access_token);
-                navigate('/todo');
-            }
-        } catch (error) {
-            console.error('Signin failed:', error);
-        }
+    const clickSignin = async () => {
+        signin(email, password)
+        .then((res) => {
+            localStorage.setItem('access_token', res.access_token);
+            navigate('/todo');
+        })
     };
+    
 
     // 토큰 존재할 시 /todo로 리다이렉트
     useEffect(() => {
