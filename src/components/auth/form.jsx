@@ -30,16 +30,13 @@ export default function Form({ onValidationChange, onUserDataChange }) {
     // 상위 항목으로 emit
     useEffect(() => {
         onUserDataChange(email, password);
-      }, [email, password, onUserDataChange]);
-    
+    }, [email, password, onUserDataChange]);
+
     useEffect(() => {
         onValidationChange(isEmailValid && isPasswordValid);
-      }, [isEmailValid, isPasswordValid, onValidationChange]);
-    
+    }, [isEmailValid, isPasswordValid, onValidationChange]);
 
-
-
-    return(
+    return (
         <div>
             <label for="e-mail">e-mail: </label>
             <input id="e-mail" data-testid="email-input" onChange={handleEmailChange} value={email} />

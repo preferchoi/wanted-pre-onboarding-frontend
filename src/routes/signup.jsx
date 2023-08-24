@@ -1,5 +1,5 @@
 import React, { useState, useCallback  } from 'react';
-import signup from "../api/auth/signup";
+import { signup } from "../api/auth";
 import Form from "../components/auth/form"
 import { useNavigate } from "react-router-dom";
 

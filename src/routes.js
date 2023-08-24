@@ -3,8 +3,8 @@ import Signin from './routes/signin';
 import Signup from './routes/signup';
 import Todo from './routes/todo';
 import { createBrowserRouter } from "react-router-dom";
-import { AuthLayout } from "./components/auth/layout";
-import { TodosLayout } from "./components/todos/layout";
+import  AuthLayout  from "./components/auth/layout";
+import  TodosLayout  from "./components/todos/layout";
 
 export const router = createBrowserRouter([
     {

@@ -1,6 +1,6 @@
 import React, { useState, useCallback  } from 'react';
 import { useNavigate } from "react-router-dom";
-import signin from "../api/auth/signin";
+import { signin } from "../api/auth";
 import Form from "../components/auth/form"
 
 export default function Signin() {
