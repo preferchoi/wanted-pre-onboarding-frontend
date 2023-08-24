@@ -1,35 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import signin from "../api/auth/signin";
-
+import Form from "../components/auth/form"
 
 export default function Signin() {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isEmailValid, setIsEmailValid] = useState(false);
-    const [isPasswordValid, setIsPasswordValid] = useState(false);
-
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    };
-
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
-
-    // 이메일 유효성 체크
-    useEffect(() => {
-        const emailRegex = /^.*@.*$/;
-        setIsEmailValid(emailRegex.test(email));
-    }, [email]);
-
-    // 비밀번호 유효성 체크
-    useEffect(() => {
-        const passwordRegex = /^.{8,}$/;
-        setIsPasswordValid(passwordRegex.test(password));
-    }, [password]);
+    const [isValid, setIsValid] = useState(false);
 
     // 로그인 처리 로직
     const clickSignin = async () => {
@@ -39,7 +18,6 @@ export default function Signin() {
             navigate('/todo');
         })
     };
-    
 
     // 토큰 존재할 시 /todo로 리다이렉트
     useEffect(() => {
@@ -49,15 +27,22 @@ export default function Signin() {
         }
     }, []);
 
+    // 유효성 체크, 버튼 활성화
+    const handleValidationChange = (valid) => {
+        setIsValid(valid);
+    };
+
+    const handleUserDataChange = (email, password) => {
+        setEmail(email);
+        setPassword(password);
+    };
+    
+
     return (
         <div>
-            <label for="e-mail">e-mail: </label>
-            <input id="e-mail" data-testid="email-input" onChange={handleEmailChange} value={email} />
+            <Form onValidationChange={handleValidationChange} onUserDataChange={handleUserDataChange} />
             <br></br>
-            <label for="password">password: </label>
-            <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />
-            <br></br>
-            <button data-testid="signin-button" disabled={!(isEmailValid && isPasswordValid)} onClick={signin}>로그인</button>
+            <button data-testid="signin-button" disabled={!isValid} onClick={clickSignin}>로그인</button>
         </div>
     );
 }

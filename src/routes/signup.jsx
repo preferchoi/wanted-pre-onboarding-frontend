@@ -1,35 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import signup from "../api/auth/signup";
+import Form from "../components/auth/form"
 
 
 export default function Signup() {
     const navigate = useNavigate();
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isEmailValid, setIsEmailValid] = useState(false);
-    const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const [isValid, setIsValid] = useState(false);
 
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
+    // 유효성 체크, 버튼 활성화
+    const handleValidationChange = (valid) => {
+        setIsValid(valid);
     };
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
+    const handleUserDataChange = (email, password) => {
+        setEmail(email);
+        setPassword(password);
     };
-
-    // 이메일 유효성 체크
-    useEffect(() => {
-        const emailRegex = /^.*@.*$/;
-        setIsEmailValid(emailRegex.test(email));
-    }, [email]);
-
-    // 비밀번호 유효성 체크
-    useEffect(() => {
-        const passwordRegex = /^.{8,}$/;
-        setIsPasswordValid(passwordRegex.test(password));
-    }, [password]);
 
     // 회원가입 요청
     const clickSignup = async () => {
@@ -49,13 +38,9 @@ export default function Signup() {
 
     return (
         <div>
-            <<label for="e-mail">e-mail: </label>
-            <input id="e-mail" data-testid="email-input" onChange={handleEmailChange} value={email} />
+            <Form onValidationChange={handleValidationChange} onUserDataChange={handleUserDataChange} />
             <br></br>
-            <label for="password">password: </label>
-            <input id="password" data-testid="password-input" onChange={handlePasswordChange} value={password} />>
-            <br></br>
-            <button data-testid="signup-button" disabled={!(isEmailValid && isPasswordValid)} onClick={clickSignup}>회원가입</button>
+            <button data-testid="signup-button" disabled={!isValid} onClick={clickSignup}>회원가입</button>
         </div>
     );
 }
