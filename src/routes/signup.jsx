@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState, useCallback  } from 'react';
 import signup from "../api/auth/signup";
 import Form from "../components/auth/form"
+import { useNavigate } from "react-router-dom";
 
 
 export default function Signup() {
@@ -11,14 +11,14 @@ export default function Signup() {
     const [isValid, setIsValid] = useState(false);
 
     // 유효성 체크, 버튼 활성화
-    const handleValidationChange = (valid) => {
+    const handleValidationChange = useCallback((valid) => {
         setIsValid(valid);
-    };
+    }, []);
 
-    const handleUserDataChange = (email, password) => {
+    const handleUserDataChange = useCallback((email, password) => {
         setEmail(email);
         setPassword(password);
-    };
+    }, []);
 
     // 회원가입 요청
     const clickSignup = async () => {
@@ -27,14 +27,6 @@ export default function Signup() {
             navigate('/signin');
         })
     };
-
-    // 토큰 존재할 시 /todo로 리다이렉트
-    useEffect(() => {
-        const token = localStorage.getItem("access_token")
-        if (token) {
-            navigate('/todo');
-        }
-    }, []);
 
     return (
         <div>

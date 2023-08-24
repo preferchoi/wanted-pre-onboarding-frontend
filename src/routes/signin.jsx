@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback  } from 'react';
 import { useNavigate } from "react-router-dom";
 import signin from "../api/auth/signin";
 import Form from "../components/auth/form"
 
 export default function Signin() {
-
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,23 +18,15 @@ export default function Signin() {
         })
     };
 
-    // 토큰 존재할 시 /todo로 리다이렉트
-    useEffect(() => {
-        const token = localStorage.getItem("access_token")
-        if (token) {
-            navigate('/todo');
-        }
+    // 유효성 체크, 버튼 활성화
+    const handleValidationChange = useCallback((valid) => {
+        setIsValid(valid);
     }, []);
 
-    // 유효성 체크, 버튼 활성화
-    const handleValidationChange = (valid) => {
-        setIsValid(valid);
-    };
-
-    const handleUserDataChange = (email, password) => {
+    const handleUserDataChange = useCallback((email, password) => {
         setEmail(email);
         setPassword(password);
-    };
+    }, []);
     
 
     return (

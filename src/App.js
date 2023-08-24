@@ -6,7 +6,7 @@ export default function App() {
 
     useEffect(() => {
         navigate('/signin');
-    }, []);
+    }, [navigate]);
 
     return <h1>hello</h1>
 }

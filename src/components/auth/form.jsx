@@ -28,13 +28,14 @@ export default function Form({ onValidationChange, onUserDataChange }) {
     }, [password]);
 
     // 상위 항목으로 emit
-    useEffect(()=>{
-        onUserDataChange(email, password)
-    },[email, password])
+    useEffect(() => {
+        onUserDataChange(email, password);
+      }, [email, password, onUserDataChange]);
     
     useEffect(() => {
         onValidationChange(isEmailValid && isPasswordValid);
-    }, [isEmailValid, isPasswordValid]);
+      }, [isEmailValid, isPasswordValid, onValidationChange]);
+    
 
 
 
