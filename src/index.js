@@ -1,33 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import Signin from './routes/signin';
-import Signup from './routes/signup';
-import Todo from './routes/todo';
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />
-  },
-  {
-    path: "/signin",
-    element: <Signin />
-  },
-  {
-    path: "/todo",
-    element: <Todo />
-  },
-]);
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
